@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 60-30-10 Color System -->
+    <!-- Dominant Background (60%) -->
+    <color name="habit_bg_light">#F8FAFC</color>
+    <color name="habit_bg_dark">#0F172A</color>
+
+    <!-- Secondary Containers / Cards (30%) -->
+    <color name="habit_surface_light">#FFFFFF</color>
+    <color name="habit_surface_dark">#1E293B</color>
+    <color name="habit_card_container_light">#F1F5F9</color>
+    <color name="habit_card_container_dark">#334155</color>
+
+    <!-- Accent / Gamification (10%) -->
+    <color name="habit_primary">#8B5CF6</color> <!-- Electric Violet -->
+    <color name="habit_primary_dark">#7C3AED</color>
+    <color name="habit_accent_gold">#F59E0B</color>
+    <color name="habit_accent_gold_dark">#D97706</color>
+
+    <!-- Text & Supporting -->
+    <color name="habit_text_primary_light">#0F172A</color>
+    <color name="habit_text_primary_dark">#F8FAFC</color>
+    <color name="habit_text_secondary_light">#64748B</color>
+    <color name="habit_text_secondary_dark">#94A3B8</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

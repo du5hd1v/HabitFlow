@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/habit_bg_light"
+    android:fillViewport="true"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PERFORMANCE &amp; ANALYTICS"
+            android:textColor="@color/habit_primary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Your Growth Dashboard"
+            android:textColor="@color/habit_text_primary_light"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Weekly Activity Card (XP Gained Overview & Weekly Bar Chart M T W T F S S) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/habit_surface_light"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WEEKLY XP OVERVIEW"
+                    android:textColor="@color/habit_text_secondary_light"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_total_xp_overview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="2,840 XP Earned"
+                    android:textColor="@color/habit_primary"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <!-- Simulated Weekly Bar Representation M T W T F S S -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="bottom"
+                    android:orientation="horizontal"
+                    android:weightSum="7">
+
+                    <!-- Mon -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
+                        <View android:layout_width="16dp" android:layout_height="60dp" android:background="@color/habit_primary" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="M" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
+                    </LinearLayout>
+                    <!-- Tue -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
+                        <View android:layout_width="16dp" android:layout_height="80dp" android:background="@color/habit_primary" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="T" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
+                    </LinearLayout>
+                    <!-- Wed -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
+                        <View android:layout_width="16dp" android:layout_height="50dp" android:background="@color/habit_primary" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="W" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
+                    </LinearLayout>
+                    <!-- Thu -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
+                        <View android:layout_width="16dp" android:layout_height="95dp" android:background="@color/habit_primary" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="T" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
+                    </LinearLayout>
+                    <!-- Fri -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
+                        <View android:layout_width="16dp" android:layout_height="110dp" android:background="@color/habit_accent_gold" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="F" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
+                    </LinearLayout>
+                    <!-- Sat -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
+                        <View android:layout_width="16dp" android:layout_height="70dp" android:background="@color/habit_primary" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="S" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
+                    </LinearLayout>
+                    <!-- Sun -->
+                    <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
+                        <View android:layout_width="16dp" android:layout_height="85dp" android:background="@color/habit_primary" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="S" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Metric Cards: Total Focus Hours & Total Tasks Completed -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/habit_surface_light"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Focus Hours"
+                        android:textColor="@color/habit_text_secondary_light"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_stats_focus_hours"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="42.5h"
+                        android:textColor="@color/habit_primary"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/habit_surface_light"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tasks Completed"
+                        android:textColor="@color/habit_text_secondary_light"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_stats_tasks_completed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="28"
+                        android:textColor="@color/habit_accent_gold"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Subject Focus Breakdown Progress Indicators -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/habit_surface_light"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SUBJECT FOCUS BREAKDOWN"
+                    android:textColor="@color/habit_text_secondary_light"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <!-- Coding 65% -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Coding &amp; Engineering (65%)"
+                    android:textColor="@color/habit_text_primary_light"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="6dp"
+                    android:progress="65"
+                    android:progressTint="@color/habit_primary" />
+
+                <!-- Personal 20% -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Personal Growth (20%)"
+                    android:textColor="@color/habit_text_primary_light"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="6dp"
+                    android:progress="20"
+                    android:progressTint="@color/habit_accent_gold" />
+
+                <!-- Health 15% -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Health &amp; Wellness (15%)"
+                    android:textColor="@color/habit_text_primary_light"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="6dp"
+                    android:progress="15"
+                    android:progressTint="#10B981" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Current Streak Calendar Day-by-Day Status Indicators -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@color/habit_surface_light"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="STREAK CALENDAR (12 DAYS)"
+                    android:textColor="@color/habit_text_secondary_light"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- Day badges -->
+                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="1" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="2" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="3" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="4" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="5" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="6" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="7" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="8" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="9" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="10" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="11" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@color/habit_primary" android:gravity="center" android:text="12" android:textColor="@color/white" android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

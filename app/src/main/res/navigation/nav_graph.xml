@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.habitflow.ui.HomeFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_study"
+        android:name="com.example.habitflow.ui.StudyFragment"
+        android:label="Study Timer"
+        tools:layout="@layout/fragment_study" />
+
+    <fragment
+        android:id="@+id/navigation_ai_planner"
+        android:name="com.example.habitflow.ui.AiPlannerFragment"
+        android:label="AI Planner"
+        tools:layout="@layout/fragment_ai_planner" />
+
+    <fragment
+        android:id="@+id/navigation_stats"
+        android:name="com.example.habitflow.ui.StatsFragment"
+        android:label="Statistics"
+        tools:layout="@layout/fragment_stats" />
+
+</navigation>

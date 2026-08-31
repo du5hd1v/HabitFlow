@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Home" />
+    <item
+        android:id="@+id/navigation_study"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Study" />
+    <item
+        android:id="@+id/navigation_ai_planner"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="AI Planner" />
+    <item
+        android:id="@+id/navigation_stats"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Stats" />
+</menu>
