@@ -51,13 +51,62 @@ class StudyFragment : Fragment(R.layout.fragment_study) {
         val btnLofi = view.findViewById<Button>(R.id.btn_audio_lofi)
         val btnCafe = view.findViewById<Button>(R.id.btn_audio_cafe)
 
-        btnStart.setOnClickListener { viewModel.startTimer() }
-        btnPause.setOnClickListener { viewModel.pauseTimer() }
-        btnReset.setOnClickListener { viewModel.resetTimer(25) }
+        val btnDur15 = view.findViewById<Button>(R.id.btn_duration_15)
+        val btnDur25 = view.findViewById<Button>(R.id.btn_duration_25)
+        val btnDur30 = view.findViewById<Button>(R.id.btn_duration_30)
+        val btnDur45 = view.findViewById<Button>(R.id.btn_duration_45)
+        val btnDur60 = view.findViewById<Button>(R.id.btn_duration_60)
+        val btnDurCustom = view.findViewById<Button>(R.id.btn_duration_custom)
 
-        btnRain.setOnClickListener { viewModel.setAudioPreset("Rain") }
-        btnLofi.setOnClickListener { viewModel.setAudioPreset("Lo-Fi Beats") }
-        btnCafe.setOnClickListener { viewModel.setAudioPreset("Cafe") }
+        btnStart.setOnClickListener { 
+            viewModel.startTimer()
+            android.widget.Toast.makeText(requireContext(), "Pomodoro Timer Started", android.widget.Toast.LENGTH_SHORT).show()
+        }
+        btnPause.setOnClickListener { 
+            viewModel.pauseTimer()
+            android.widget.Toast.makeText(requireContext(), "Pomodoro Timer Paused", android.widget.Toast.LENGTH_SHORT).show()
+        }
+        btnReset.setOnClickListener { 
+            viewModel.resetTimer()
+            android.widget.Toast.makeText(requireContext(), "Pomodoro Timer Reset", android.widget.Toast.LENGTH_SHORT).show()
+        }
+
+        btnDur15.setOnClickListener {
+            viewModel.setDuration(15)
+            android.widget.Toast.makeText(requireContext(), "Duration set to 15 minutes", android.widget.Toast.LENGTH_SHORT).show()
+        }
+        btnDur25.setOnClickListener {
+            viewModel.setDuration(25)
+            android.widget.Toast.makeText(requireContext(), "Duration set to 25 minutes", android.widget.Toast.LENGTH_SHORT).show()
+        }
+        btnDur30.setOnClickListener {
+            viewModel.setDuration(30)
+            android.widget.Toast.makeText(requireContext(), "Duration set to 30 minutes", android.widget.Toast.LENGTH_SHORT).show()
+        }
+        btnDur45.setOnClickListener {
+            viewModel.setDuration(45)
+            android.widget.Toast.makeText(requireContext(), "Duration set to 45 minutes", android.widget.Toast.LENGTH_SHORT).show()
+        }
+        btnDur60.setOnClickListener {
+            viewModel.setDuration(60)
+            android.widget.Toast.makeText(requireContext(), "Duration set to 60 minutes", android.widget.Toast.LENGTH_SHORT).show()
+        }
+        btnDurCustom.setOnClickListener {
+            showCustomDurationDialog()
+        }
+
+        btnRain.setOnClickListener { 
+            viewModel.setAudioPreset("Rain")
+            android.widget.Toast.makeText(requireContext(), "Ambient Audio: Rain", android.widget.Toast.LENGTH_SHORT).show()
+        }
+        btnLofi.setOnClickListener { 
+            viewModel.setAudioPreset("Lo-Fi Beats")
+            android.widget.Toast.makeText(requireContext(), "Ambient Audio: Lo-Fi Beats", android.widget.Toast.LENGTH_SHORT).show()
+        }
+        btnCafe.setOnClickListener { 
+            viewModel.setAudioPreset("Cafe")
+            android.widget.Toast.makeText(requireContext(), "Ambient Audio: Cafe", android.widget.Toast.LENGTH_SHORT).show()
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -66,8 +115,83 @@ class StudyFragment : Fragment(R.layout.fragment_study) {
                     val secs = state.remainingSeconds % 60
                     tvCountdown.text = String.format(Locale.getDefault(), "%02d:%02d", mins, secs)
                     tvActiveTask.text = "Deep Focus Session - ${state.sessionTitle}"
+
+                    // Highlight duration presets
+                    val duration = state.selectedDurationMins
+                    updateButtonSelection(btnDur15, duration == 15)
+                    updateButtonSelection(btnDur25, duration == 25)
+                    updateButtonSelection(btnDur30, duration == 30)
+                    updateButtonSelection(btnDur45, duration == 45)
+                    updateButtonSelection(btnDur60, duration == 60)
+
+                    val isCustom = duration !in listOf(15, 25, 30, 45, 60)
+                    updateButtonSelection(btnDurCustom, isCustom)
+                    if (isCustom) {
+                        btnDurCustom.text = "${duration}m"
+                    } else {
+                        btnDurCustom.text = "Custom"
+                    }
+
+                    // Highlight ambient audio presets
+                    val audio = state.selectedAudioPreset
+                    updateButtonSelection(btnRain, audio == "Rain")
+                    updateButtonSelection(btnLofi, audio == "Lo-Fi Beats")
+                    updateButtonSelection(btnCafe, audio == "Cafe")
                 }
             }
         }
+    }
+
+    private fun updateButtonSelection(button: Button, isSelected: Boolean) {
+        if (isSelected) {
+            button.backgroundTintList = android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#8B5CF6")) // Vibrant Electric Violet
+            button.setTextColor(android.graphics.Color.WHITE)
+            (button as? com.google.android.material.button.MaterialButton)?.let {
+                it.strokeWidth = 0
+            }
+        } else {
+            button.backgroundTintList = android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#1E293B")) // Default container color
+            button.setTextColor(android.graphics.Color.parseColor("#94A3B8")) // Supporting text color
+            (button as? com.google.android.material.button.MaterialButton)?.let {
+                it.strokeWidth = 2
+                it.strokeColor = android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#334155"))
+            }
+        }
+    }
+
+    private fun showCustomDurationDialog() {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+        builder.setTitle("Custom Focus Duration")
+
+        val input = android.widget.EditText(requireContext())
+        input.inputType = android.text.InputType.TYPE_CLASS_NUMBER
+        input.hint = "Enter minutes (e.g. 50)"
+
+        val container = android.widget.FrameLayout(requireContext())
+        val params = android.widget.FrameLayout.LayoutParams(
+            android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+            android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        params.leftMargin = 48
+        params.rightMargin = 48
+        input.layoutParams = params
+        container.addView(input)
+
+        builder.setView(container)
+
+        builder.setPositiveButton("Set") { _, _ ->
+            val text = input.text.toString()
+            val mins = text.toIntOrNull()
+            if (mins != null && mins > 0) {
+                viewModel.setDuration(mins)
+                android.widget.Toast.makeText(requireContext(), "Duration set to $mins minutes", android.widget.Toast.LENGTH_SHORT).show()
+            } else {
+                android.widget.Toast.makeText(requireContext(), "Invalid duration entered", android.widget.Toast.LENGTH_SHORT).show()
+            }
+        }
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.cancel()
+        }
+        builder.show()
     }
 }

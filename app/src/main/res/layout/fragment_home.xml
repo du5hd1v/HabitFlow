@@ -21,15 +21,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:layout_marginTop="15dp"
                 app:cardBackgroundColor="@color/habit_surface_light"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp">
 
                 <LinearLayout
+                    android:id="@+id/container_user_header"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:paddingTop="70dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -41,7 +43,9 @@
                             android:id="@+id/iv_profile"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
-                            android:background="@drawable/ic_launcher_foreground"
+                            android:background="@drawable/ic_user"
+                            android:backgroundTint="@color/habit_primary"
+                            android:padding="12dp"
                             android:contentDescription="Profile Picture" />
 
                         <LinearLayout
@@ -55,7 +59,7 @@
                                 android:id="@+id/tv_user_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Alex Morgan"
+                                android:text="Alex Rivera"
                                 android:textColor="@color/habit_text_primary_light"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -132,25 +136,41 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
                         android:padding="16dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Current Streak"
-                            android:textColor="@color/habit_text_secondary_light"
-                            android:textSize="12sp" />
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:contentDescription="Streak Icon"
+                            android:src="@drawable/ic_flame"
+                            app:tint="@color/habit_accent_gold" />
 
-                        <TextView
-                            android:id="@+id/tv_streak_metric"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="12 Days"
-                            android:textColor="@color/habit_accent_gold"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Current Streak"
+                                android:textColor="@color/habit_text_secondary_light"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_streak_metric"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="12 Days"
+                                android:textColor="@color/habit_accent_gold"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -166,25 +186,41 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
                         android:padding="16dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total Focus"
-                            android:textColor="@color/habit_text_secondary_light"
-                            android:textSize="12sp" />
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:contentDescription="Focus Icon"
+                            android:src="@drawable/ic_timer"
+                            app:tint="@color/habit_primary" />
 
-                        <TextView
-                            android:id="@+id/tv_focus_metric"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="42.5h"
-                            android:textColor="@color/habit_primary"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total Focus"
+                                android:textColor="@color/habit_text_secondary_light"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_focus_metric"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="42.5h"
+                                android:textColor="@color/habit_primary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -259,7 +295,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
         android:contentDescription="Add Habit or Task"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/habit_primary"
         app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

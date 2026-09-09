@@ -1,6 +1,6 @@
-# Walkthrough - HabitFlow Material Design 3 XML Layouts & Fragments
+# Walkthrough - HabitFlow Material Design 3 XML Layouts & Fragments with Task Update & Delete
 
-Implemented Material Design 3 XML layouts, Fragments, Adapters, and Navigation Component with BottomNavigationView across all 4 core screens (Home, Study, AI Planner, and Stats) connected to MVVM ViewModels and Room database.
+Implemented Material Design 3 XML layouts, Fragments, Adapters, and Navigation Component with BottomNavigationView across all 4 core screens (Home, Study, AI Planner, and Stats) connected to MVVM ViewModels and Room database, including robust task update and delete features.
 
 ## Changes
 
@@ -12,9 +12,12 @@ Implemented Material Design 3 XML layouts, Fragments, Adapters, and Navigation C
 - **`nav_graph.xml`**: Navigation graph linking Home, Study, AI Planner, and Stats destinations.
 - **`activity_main.xml` & `MainActivity.kt`**: Set up NavHostFragment and BottomNavigationView with NavController.
 
-### Screen 1: Dashboard / Home
+### Screen 1: Dashboard / Home & Task Management (Update & Delete)
 - **`fragment_home.xml`**: User header (Level 5 Scholar, XP Progress bar 1,250 / 2,000 XP), summary metric cards (Streak 12 Days, Total Focus 42.5h), recommended session banner, and habits/tasks RecyclerView with FAB for adding custom habits.
-- **`HomeFragment.kt` & `HabitTaskAdapter.kt` & `AddHabitBottomSheetFragment.kt`**: MVVM integration, reactive state collection, habit completion toggling, deletion, and modal bottom sheet addition.
+- **`HabitTaskAdapter.kt`**: Added options menu (`btn_options`) supporting Edit and Delete popup actions.
+- **`HomeViewModel.kt`**: Added `updateHabit(habit)` and `deleteHabit(habit)` suspend functions interacting with `HabitRepository`.
+- **`AddHabitBottomSheetFragment.kt`**: Enhanced to support pre-population of existing habit data when editing (`habitToEdit != null`), adapting dialog title and save button text accordingly.
+- **`HomeFragment.kt`**: Wired adapter callbacks to handle editing via bottom sheet and deletion directly through ViewModel.
 
 ### Screen 2: Deep Focus Pomodoro Timer
 - **`fragment_study.xml` & `StudyFragment.kt`**: Active task header, circular countdown timer view (25:00 default) with Start, Pause, Reset controls, ambient audio environment selector (`Rain`, `Lo-Fi Beats`, `Cafe`), and reward banner (+100 XP & streak shield).

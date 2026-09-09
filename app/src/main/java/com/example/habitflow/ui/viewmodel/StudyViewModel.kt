@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 data class StudyUiState(
     val remainingSeconds: Int = 25 * 60,
     val totalSeconds: Int = 25 * 60,
+    val selectedDurationMins: Int = 25,
     val isRunning: Boolean = false,
     val selectedAudioPreset: String = "Lo-Fi Beats",
     val sessionTitle: String = "Deep Focus Study"
@@ -35,6 +36,18 @@ class StudyViewModel(
 
     fun setSessionTitle(title: String) {
         _uiState.update { it.copy(sessionTitle = title) }
+    }
+
+    fun setDuration(minutes: Int) {
+        pauseTimer()
+        val secs = minutes * 60
+        _uiState.update { 
+            it.copy(
+                totalSeconds = secs,
+                remainingSeconds = secs,
+                selectedDurationMins = minutes
+            ) 
+        }
     }
 
     fun startTimer() {
@@ -63,10 +76,15 @@ class StudyViewModel(
         timerJob?.cancel()
     }
 
-    fun resetTimer(customMinutes: Int = 25) {
+    fun resetTimer() {
         pauseTimer()
-        val secs = customMinutes * 60
+        val mins = _uiState.value.selectedDurationMins
+        val secs = mins * 60
         _uiState.update { it.copy(totalSeconds = secs, remainingSeconds = secs) }
+    }
+
+    fun resetTimer(customMinutes: Int) {
+        setDuration(customMinutes)
     }
 
     private fun onSessionCompleted() {

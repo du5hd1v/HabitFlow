@@ -55,7 +55,10 @@ class AiPlannerFragment : Fragment(R.layout.fragment_ai_planner) {
         val recycler = view.findViewById<RecyclerView>(R.id.recycler_ai_steps)
 
         stepsAdapter = AiStepsAdapter(
-            onAddStep = { taskItem -> viewModel.saveGeneratedTaskToToday(taskItem) }
+            onAddStep = { taskItem -> 
+                viewModel.saveGeneratedTaskToToday(taskItem)
+                android.widget.Toast.makeText(requireContext(), "Added '${taskItem.title}' to Today's Tasks", android.widget.Toast.LENGTH_SHORT).show()
+            }
         )
 
         recycler.layoutManager = LinearLayoutManager(requireContext())
@@ -67,10 +70,12 @@ class AiPlannerFragment : Fragment(R.layout.fragment_ai_planner) {
 
         btnGenerate.setOnClickListener {
             viewModel.generatePlan()
+            android.widget.Toast.makeText(requireContext(), "Generating AI study steps...", android.widget.Toast.LENGTH_SHORT).show()
         }
 
         btnAddAll.setOnClickListener {
             viewModel.saveAllGeneratedTasks()
+            android.widget.Toast.makeText(requireContext(), "Added all AI steps to Today's Tasks!", android.widget.Toast.LENGTH_SHORT).show()
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

@@ -58,11 +58,27 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val btnStartRecommended = view.findViewById<Button>(R.id.btn_start_recommended)
         val fabAdd = view.findViewById<FloatingActionButton>(R.id.fab_add_habit)
         val recycler = view.findViewById<RecyclerView>(R.id.recycler_habits)
+        val containerUserHeader = view.findViewById<View>(R.id.container_user_header)
 
-        tvUserName.text = "Alex Morgan"
+        val headerPadding = (20 * resources.displayMetrics.density).toInt()
+        containerUserHeader.setPadding(headerPadding, headerPadding, headerPadding, headerPadding)
+
+        tvUserName.text = "Alex Rivera"
 
         habitAdapter = HabitTaskAdapter(
             onToggle = { habit -> viewModel.toggleHabitCompletion(habit) },
+            onEdit = { habit ->
+                val bottomSheet = AddHabitBottomSheetFragment(habit) { title, category, details ->
+                    val updated = habit.copy(
+                        title = title,
+                        category = category,
+                        details = details,
+                        xpReward = viewModel.calculateXpForCategory(category)
+                    )
+                    viewModel.updateHabit(updated)
+                }
+                bottomSheet.show(parentFragmentManager, "AddHabitBottomSheet")
+            },
             onDelete = { habit -> viewModel.deleteHabit(habit) }
         )
 
@@ -74,8 +90,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         fabAdd.setOnClickListener {
-            val bottomSheet = AddHabitBottomSheetFragment { title, category, xp, details ->
-                viewModel.addHabit(title, category, xp, details)
+            val bottomSheet = AddHabitBottomSheetFragment { title, category, details ->
+                viewModel.addHabit(title, category, details)
             }
             bottomSheet.show(parentFragmentManager, "AddHabitBottomSheet")
         }
