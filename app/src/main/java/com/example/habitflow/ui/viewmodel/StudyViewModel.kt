@@ -1,6 +1,7 @@
 package com.example.habitflow.ui.viewmodel
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.habitflow.data.entity.StudySessionEntity
 import com.example.habitflow.data.repository.StudyRepository
@@ -15,23 +16,36 @@ data class StudyUiState(
     val remainingSeconds: Int = 25 * 60,
     val totalSeconds: Int = 25 * 60,
     val selectedDurationMins: Int = 25,
+    val customDurationMins: Int? = null,
     val isRunning: Boolean = false,
     val selectedAudioPreset: String = "Lo-Fi Beats",
-    val sessionTitle: String = "Deep Focus Study"
+    val sessionTitle: String = "Deep Focus Study",
+    val isAudioPlaying: Boolean = false
 )
 
 class StudyViewModel(
+    application: Application,
     private val studyRepository: StudyRepository,
     private val userRepository: UserRepository
-) : ViewModel() {
+) : AndroidViewModel(application) {
 
     private val _uiState = MutableStateFlow(StudyUiState())
     val uiState: StateFlow<StudyUiState> = _uiState.asStateFlow()
 
     private var timerJob: kotlinx.coroutines.Job? = null
+    private val ambientAudioManager = com.example.habitflow.util.AmbientAudioManager()
 
     fun setAudioPreset(preset: String) {
-        _uiState.update { it.copy(selectedAudioPreset = preset) }
+        val currentPreset = _uiState.value.selectedAudioPreset
+        val isPlaying = _uiState.value.isAudioPlaying
+
+        if (currentPreset == preset && isPlaying) {
+            ambientAudioManager.stop()
+            _uiState.update { it.copy(selectedAudioPreset = preset, isAudioPlaying = false) }
+        } else {
+            ambientAudioManager.play(getApplication(), preset)
+            _uiState.update { it.copy(selectedAudioPreset = preset, isAudioPlaying = true) }
+        }
     }
 
     fun setSessionTitle(title: String) {
@@ -46,6 +60,19 @@ class StudyViewModel(
                 totalSeconds = secs,
                 remainingSeconds = secs,
                 selectedDurationMins = minutes
+            ) 
+        }
+    }
+
+    fun setCustomDuration(minutes: Int) {
+        pauseTimer()
+        val secs = minutes * 60
+        _uiState.update { 
+            it.copy(
+                totalSeconds = secs,
+                remainingSeconds = secs,
+                selectedDurationMins = minutes,
+                customDurationMins = minutes
             ) 
         }
     }
@@ -74,6 +101,8 @@ class StudyViewModel(
     fun pauseTimer() {
         _uiState.update { it.copy(isRunning = false) }
         timerJob?.cancel()
+        ambientAudioManager.release()
+        _uiState.update { it.copy(isAudioPlaying = false) }
     }
 
     fun resetTimer() {
@@ -81,10 +110,16 @@ class StudyViewModel(
         val mins = _uiState.value.selectedDurationMins
         val secs = mins * 60
         _uiState.update { it.copy(totalSeconds = secs, remainingSeconds = secs) }
+        ambientAudioManager.release()
+        _uiState.update { it.copy(isAudioPlaying = false) }
     }
 
     fun resetTimer(customMinutes: Int) {
         setDuration(customMinutes)
+    }
+
+    override fun onCleared() {
+        ambientAudioManager.release()
     }
 
     private fun onSessionCompleted() {
@@ -97,8 +132,8 @@ class StudyViewModel(
                     timestamp = System.currentTimeMillis()
                 )
             )
-            // Reward +100 XP and focus hours
-            userRepository.addXpAndFocus(100, durationMins / 60.0)
+            // Reward +100 XP, focus hours, and increment streak
+            userRepository.addXpAndFocus(100, durationMins / 60.0, streakDelta = 1)
         }
     }
 }

@@ -105,14 +105,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
                 launch {
                     viewModel.userProgress.collectLatest { progress ->
-                        progress?.let {
-                            tvUserLevel.text = "Level ${it.level} Scholar"
-                            tvXpProgress.text = "${it.currentXp} / ${it.maxXP} XP"
-                            val percent = if (it.maxXP > 0) (it.currentXp * 100 / it.maxXP) else 0
-                            progressXp.progress = percent
-                            tvStreak.text = "${it.streakDays} Days"
-                            tvFocus.text = "${String.format(Locale.getDefault(), "%.1f", it.totalFocusHours)}h"
-                        }
+                        tvUserLevel.text = "Level ${progress.level} Scholar"
+                        tvXpProgress.text = "${progress.currentXp} / ${progress.maxXP} XP"
+                        progressXp.max = if (progress.maxXP > 0) progress.maxXP else 100
+                        progressXp.progress = progress.currentXp
+                        tvStreak.text = "${progress.streakDays} Days"
+                        tvFocus.text = "${String.format(Locale.getDefault(), "%.1f", progress.totalFocusHours)}h"
                     }
                 }
             }

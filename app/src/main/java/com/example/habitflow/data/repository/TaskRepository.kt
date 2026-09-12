@@ -15,8 +15,17 @@ class TaskRepository(private val taskDao: TaskDao) {
 
     suspend fun deleteTask(task: TaskEntity) = taskDao.deleteTask(task)
 
-    suspend fun toggleTaskCompletion(task: TaskEntity) {
-        val updated = task.copy(isCompleted = !task.isCompleted)
+    suspend fun toggleTaskCompletion(task: TaskEntity, userRepository: UserRepository? = null) {
+        val willBeCompleted = !task.isCompleted
+        val updated = task.copy(isCompleted = willBeCompleted)
         taskDao.updateTask(updated)
+        if (userRepository != null) {
+            val xp = if (task.estimatedMins > 0) task.estimatedMins * 2 else 25
+            if (willBeCompleted) {
+                userRepository.addXpAndFocus(xp, 0.0, streakDelta = 1)
+            } else {
+                userRepository.addXpAndFocus(-xp, 0.0, streakDelta = -1)
+            }
+        }
     }
 }

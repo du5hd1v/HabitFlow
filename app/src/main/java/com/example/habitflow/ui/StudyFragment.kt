@@ -27,21 +27,23 @@ class StudyFragment : Fragment(R.layout.fragment_study) {
         super.onViewCreated(view, savedInstanceState)
 
         val database = AppDatabase.getDatabase(requireContext())
-        val factory = object : ViewModelProvider.Factory {
+        val factory = object : ViewModelProvider.AndroidViewModelFactory(requireActivity().application) {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 if (modelClass.isAssignableFrom(StudyViewModel::class.java)) {
                     @Suppress("UNCHECKED_CAST")
                     return StudyViewModel(
+                        requireActivity().application,
                         StudyRepository(database.studySessionDao()),
                         UserRepository(database.userProgressDao())
                     ) as T
                 }
-                throw IllegalArgumentException("Unknown ViewModel class")
+                return super.create(modelClass)
             }
         }
         viewModel = ViewModelProvider(this, factory)[StudyViewModel::class.java]
 
         val tvCountdown = view.findViewById<TextView>(R.id.tv_timer_countdown)
+        val tvTimerLabel = view.findViewById<TextView>(R.id.tv_timer_label)
         val tvActiveTask = view.findViewById<TextView>(R.id.tv_active_task_title)
         val btnStart = view.findViewById<Button>(R.id.btn_timer_start)
         val btnPause = view.findViewById<Button>(R.id.btn_timer_pause)
@@ -92,7 +94,17 @@ class StudyFragment : Fragment(R.layout.fragment_study) {
             android.widget.Toast.makeText(requireContext(), "Duration set to 60 minutes", android.widget.Toast.LENGTH_SHORT).show()
         }
         btnDurCustom.setOnClickListener {
+            val customDur = viewModel.uiState.value.customDurationMins
+            if (customDur == null || viewModel.uiState.value.selectedDurationMins == customDur) {
+                showCustomDurationDialog()
+            } else {
+                viewModel.setCustomDuration(customDur)
+                android.widget.Toast.makeText(requireContext(), "Duration set to $customDur minutes", android.widget.Toast.LENGTH_SHORT).show()
+            }
+        }
+        btnDurCustom.setOnLongClickListener {
             showCustomDurationDialog()
+            true
         }
 
         btnRain.setOnClickListener { 
@@ -111,23 +123,35 @@ class StudyFragment : Fragment(R.layout.fragment_study) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest { state ->
-                    val mins = state.remainingSeconds / 60
-                    val secs = state.remainingSeconds % 60
-                    tvCountdown.text = String.format(Locale.getDefault(), "%02d:%02d", mins, secs)
+                    val remaining = state.remainingSeconds
+                    val hours = remaining / 3600
+                    val mins = (remaining % 3600) / 60
+                    val secs = remaining % 60
+
+                    if (hours > 0) {
+                        tvCountdown.text = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, mins, secs)
+                        tvTimerLabel.text = "HOURS / MINUTES LEFT"
+                    } else {
+                        tvCountdown.text = String.format(Locale.getDefault(), "%02d:%02d", mins, secs)
+                        tvTimerLabel.text = "MINUTES LEFT"
+                    }
+
                     tvActiveTask.text = "Deep Focus Session - ${state.sessionTitle}"
 
                     // Highlight duration presets
                     val duration = state.selectedDurationMins
+                    val customDur = state.customDurationMins
                     updateButtonSelection(btnDur15, duration == 15)
                     updateButtonSelection(btnDur25, duration == 25)
                     updateButtonSelection(btnDur30, duration == 30)
                     updateButtonSelection(btnDur45, duration == 45)
                     updateButtonSelection(btnDur60, duration == 60)
 
-                    val isCustom = duration !in listOf(15, 25, 30, 45, 60)
-                    updateButtonSelection(btnDurCustom, isCustom)
-                    if (isCustom) {
-                        btnDurCustom.text = "${duration}m"
+                    val isCustomActive = customDur != null && duration == customDur
+                    updateButtonSelection(btnDurCustom, isCustomActive)
+
+                    if (customDur != null) {
+                        btnDurCustom.text = "Custom (${customDur}m)"
                     } else {
                         btnDurCustom.text = "Custom"
                     }
@@ -150,11 +174,11 @@ class StudyFragment : Fragment(R.layout.fragment_study) {
                 it.strokeWidth = 0
             }
         } else {
-            button.backgroundTintList = android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#1E293B")) // Default container color
-            button.setTextColor(android.graphics.Color.parseColor("#94A3B8")) // Supporting text color
+            button.backgroundTintList = android.content.res.ColorStateList.valueOf(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.habit_surface_light))
+            button.setTextColor(android.graphics.Color.BLACK)
             (button as? com.google.android.material.button.MaterialButton)?.let {
                 it.strokeWidth = 2
-                it.strokeColor = android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#334155"))
+                it.strokeColor = android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#94A3B8"))
             }
         }
     }
@@ -165,7 +189,7 @@ class StudyFragment : Fragment(R.layout.fragment_study) {
 
         val input = android.widget.EditText(requireContext())
         input.inputType = android.text.InputType.TYPE_CLASS_NUMBER
-        input.hint = "Enter minutes (e.g. 50)"
+        input.hint = "Enter minutes (e.g. 75)"
 
         val container = android.widget.FrameLayout(requireContext())
         val params = android.widget.FrameLayout.LayoutParams(
@@ -183,7 +207,7 @@ class StudyFragment : Fragment(R.layout.fragment_study) {
             val text = input.text.toString()
             val mins = text.toIntOrNull()
             if (mins != null && mins > 0) {
-                viewModel.setDuration(mins)
+                viewModel.setCustomDuration(mins)
                 android.widget.Toast.makeText(requireContext(), "Duration set to $mins minutes", android.widget.Toast.LENGTH_SHORT).show()
             } else {
                 android.widget.Toast.makeText(requireContext(), "Invalid duration entered", android.widget.Toast.LENGTH_SHORT).show()

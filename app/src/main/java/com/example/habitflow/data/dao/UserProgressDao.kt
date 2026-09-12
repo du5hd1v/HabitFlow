@@ -1,10 +1,9 @@
 package com.example.habitflow.data.dao
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import androidx.room.Upsert
 import com.example.habitflow.data.entity.UserProgressEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -16,7 +15,7 @@ interface UserProgressDao {
     @Query("SELECT * FROM user_progress WHERE id = 1")
     suspend fun getUserProgressSync(): UserProgressEntity?
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun insertUserProgress(progress: UserProgressEntity)
 
     @Update

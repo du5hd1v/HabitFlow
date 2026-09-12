@@ -61,6 +61,27 @@ abstract class AppDatabase : RoomDatabase() {
                     }
                 }
             }
+
+            override fun onOpen(db: SupportSQLiteDatabase) {
+                super.onOpen(db)
+                INSTANCE?.let { database ->
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val progress = database.userProgressDao().getUserProgressSync()
+                        if (progress == null) {
+                            database.userProgressDao().insertUserProgress(
+                                UserProgressEntity(
+                                    id = 1L,
+                                    level = 5,
+                                    currentXp = 1250,
+                                    maxXP = 2000,
+                                    streakDays = 12,
+                                    totalFocusHours = 42.5
+                                )
+                            )
+                        }
+                    }
+                }
+            }
         }
 
         suspend fun populateDatabase(database: AppDatabase) {

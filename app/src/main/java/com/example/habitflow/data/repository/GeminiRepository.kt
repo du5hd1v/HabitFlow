@@ -11,7 +11,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
-class GeminiRepository(private val apiKey: String = "") {
+private const val GEMINI_API_KEY = "AIzaSyBZO91ZZsW3aln_cxd-0YgHVzLcjt7wuVo"
+
+open class GeminiRepository {
     private val apiService: GeminiApiService by lazy {
         val logging = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -30,10 +32,10 @@ class GeminiRepository(private val apiKey: String = "") {
             .create(GeminiApiService::class.java)
     }
 
-    suspend fun generateStudyPlan(goal: String, currentApiKey: String = apiKey): List<GeneratedTaskItem> {
-        val key = if (currentApiKey.isNotBlank()) currentApiKey else "YOUR_GEMINI_API_KEY"
-        if (key == "YOUR_GEMINI_API_KEY" || key.isBlank()) {
-            // Return mock smart micro-tasks if API key is not configured
+    open suspend fun generateStudyPlan(goal: String): List<GeneratedTaskItem> {
+        val key = GEMINI_API_KEY
+        if (key == "YOUR_GEMINI_API_KEY" || key.isBlank() || key.startsWith("AQ.")) {
+            // Return mock smart micro-tasks if API key is not configured or dummy placeholder
             return listOf(
                 GeneratedTaskItem("Research & outline key concepts for: $goal", 15),
                 GeneratedTaskItem("Draft core implementation / notes", 25),
@@ -57,16 +59,16 @@ class GeminiRepository(private val apiKey: String = "") {
             return parseTasksFromResponse(textResponse)
         } catch (e: Exception) {
             e.printStackTrace()
-            // Fallback on error
+            // Fallback on error / offline
             return listOf(
-                GeneratedTaskItem("Setup workspace for $goal", 10),
-                GeneratedTaskItem("Execute primary study session", 30),
-                GeneratedTaskItem("Review and document learnings", 15)
+                GeneratedTaskItem("Research & outline key concepts for: $goal", 15),
+                GeneratedTaskItem("Draft core implementation / notes", 25),
+                GeneratedTaskItem("Review and summarize findings", 15)
             )
         }
     }
 
-    private fun parseTasksFromResponse(response: String): List<GeneratedTaskItem> {
+    internal fun parseTasksFromResponse(response: String): List<GeneratedTaskItem> {
         val items = mutableListOf<GeneratedTaskItem>()
         val lines = response.lines()
         for (line in lines) {

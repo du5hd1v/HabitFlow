@@ -15,9 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.habitflow.R
 import com.example.habitflow.data.AppDatabase
-import com.example.habitflow.data.PreferencesManager
 import com.example.habitflow.data.repository.GeminiRepository
-import com.example.habitflow.data.repository.TaskRepository
+import com.example.habitflow.data.repository.HabitRepository
 import com.example.habitflow.ui.adapter.AiStepsAdapter
 import com.example.habitflow.ui.viewmodel.AiPlannerViewModel
 import com.google.android.material.textfield.TextInputEditText
@@ -39,8 +38,7 @@ class AiPlannerFragment : Fragment(R.layout.fragment_ai_planner) {
                     @Suppress("UNCHECKED_CAST")
                     return AiPlannerViewModel(
                         GeminiRepository(),
-                        TaskRepository(database.taskDao()),
-                        PreferencesManager(requireContext())
+                        HabitRepository(database.habitDao())
                     ) as T
                 }
                 throw IllegalArgumentException("Unknown ViewModel class")
@@ -78,6 +76,39 @@ class AiPlannerFragment : Fragment(R.layout.fragment_ai_planner) {
             android.widget.Toast.makeText(requireContext(), "Added all AI steps to Today's Tasks!", android.widget.Toast.LENGTH_SHORT).show()
         }
 
+        // Dynamic Hint Cycler for TextInputEditText
+        val hintExamples = listOf(
+            "How do I study for my upcoming assignment?",
+            "Create a 4-week Kotlin mastery plan",
+            "Break down my final year project roadmap",
+            "How do I build consistent daily reading habits?",
+            "How do I study for my upcoming mid exam?"
+        )
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                var hintIndex = 0
+                while (true) {
+                    if (etPrompt.text.isNullOrEmpty() && !etPrompt.hasFocus()) {
+                        etPrompt.animate()
+                            .alpha(0.3f)
+                            .setDuration(250)
+                            .withEndAction {
+                                etPrompt.hint = hintExamples[hintIndex]
+                                etPrompt.animate()
+                                    .alpha(1.0f)
+                                    .setDuration(250)
+                                    .start()
+                            }
+                            .start()
+                    }
+                    kotlinx.coroutines.delay(4000L)
+                    hintIndex = (hintIndex + 1) % hintExamples.size
+                }
+            }
+        }
+
+        var lastShownError: String? = null
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest { state ->
@@ -86,6 +117,11 @@ class AiPlannerFragment : Fragment(R.layout.fragment_ai_planner) {
                     }
                     progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
                     stepsAdapter.submitList(state.generatedTasks)
+
+                    if (!state.errorMessage.isNullOrEmpty() && state.errorMessage != lastShownError) {
+                        lastShownError = state.errorMessage
+                        android.widget.Toast.makeText(requireContext(), state.errorMessage, android.widget.Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }

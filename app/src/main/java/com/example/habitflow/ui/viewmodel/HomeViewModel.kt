@@ -23,11 +23,11 @@ class HomeViewModel(
             initialValue = emptyList()
         )
 
-    val userProgress: StateFlow<UserProgressEntity?> = userRepository.userProgress
+    val userProgress: StateFlow<UserProgressEntity> = userRepository.userProgress
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = null
+            initialValue = UserProgressEntity(id = 1L, level = 5, currentXp = 1250, maxXP = 2000, streakDays = 12, totalFocusHours = 42.5)
         )
 
     fun toggleHabitCompletion(habit: HabitEntity) {
@@ -35,9 +35,9 @@ class HomeViewModel(
             val willBeCompleted = !habit.isCompleted
             habitRepository.toggleHabitCompletion(habit)
             if (willBeCompleted) {
-                userRepository.addXpAndFocus(habit.xpReward, 0.25)
+                userRepository.addXpAndFocus(habit.xpReward, 0.0, streakDelta = 1)
             } else {
-                // Optionally subtract or leave XP as earned bonus
+                userRepository.addXpAndFocus(-habit.xpReward, 0.0, streakDelta = -1)
             }
         }
     }
