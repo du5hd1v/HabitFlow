@@ -14,22 +14,27 @@
         android:orientation="vertical">
 
         <!-- Header -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AI STUDY &amp; HABIT PLANNER"
-            android:textColor="@color/habit_primary"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Intelligent Learning Roadmap"
-            android:textColor="@color/habit_text_primary_light"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AI STUDY &amp; HABIT PLANNER"
+                    android:textColor="@color/habit_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
 
         <!-- Prompt Input Text Field -->
         <com.google.android.material.textfield.TextInputLayout
@@ -40,8 +45,7 @@
             app:boxCornerRadiusBottomEnd="16dp"
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusTopStart="16dp"
-            android:hint="How do I study for my upcoming SE4041 MADD assignment?">
+            app:boxCornerRadiusTopStart="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_ai_prompt"
@@ -49,8 +53,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="top"
                 android:inputType="textMultiLine"
-                android:minLines="3"
-                android:text="How do I study for my upcoming SE4041 MADD assignment?" />
+                android:minLines="3" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Generate Button -->

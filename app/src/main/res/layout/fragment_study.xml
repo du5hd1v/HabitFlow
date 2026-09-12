@@ -24,19 +24,19 @@
             android:maxLines="1"
             android:ellipsize="end" />
 
+        <!-- Circular / Card Timer Display -->
         <TextView
             android:id="@+id/tv_active_task_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Deep Focus Session - MADD KOTLIN PROJECT"
-            android:textColor="@color/habit_text_primary_light"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:ellipsize="end"
             android:maxLines="2"
-            android:ellipsize="end" />
+            android:text="Deep Focus Session"
+            android:textColor="@color/habit_primary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <!-- Circular / Card Timer Display -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,11 +63,12 @@
                     android:maxLines="1" />
 
                 <TextView
+                    android:id="@+id/tv_timer_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Focus time remaining"
-                    android:textColor="@color/habit_text_secondary_light"
+                    android:text="MINUTES LEFT"
+                    android:textColor="@color/habit_text_secondary_dark"
                     android:textSize="14sp"
                     android:maxLines="1" />
 
@@ -94,18 +95,20 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_timer_pause"
+                        style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginHorizontal="4dp"
                         android:layout_weight="1"
-                        android:text="Pause"
-                        android:textSize="14sp"
-                        android:maxLines="1"
                         android:insetLeft="0dp"
                         android:insetRight="0dp"
+                        android:maxLines="1"
                         android:paddingHorizontal="4dp"
-                        style="?attr/materialButtonOutlinedStyle"
-                        app:cornerRadius="16dp" />
+                        android:text="Pause"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        app:cornerRadius="16dp"
+                        app:strokeColor="@color/habit_text_secondary_dark" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_timer_reset"
@@ -114,12 +117,14 @@
                         android:layout_marginStart="4dp"
                         android:layout_weight="1"
                         android:text="Reset"
+                        android:textColor="@android:color/black"
                         android:textSize="14sp"
                         android:maxLines="1"
                         android:insetLeft="0dp"
                         android:insetRight="0dp"
                         android:paddingHorizontal="4dp"
                         style="?attr/materialButtonOutlinedStyle"
+                        app:strokeColor="@color/habit_text_secondary_dark"
                         app:cornerRadius="16dp" />
                 </LinearLayout>
 
@@ -132,7 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="Focus Duration Presets"
-            android:textColor="@color/habit_text_primary_light"
+            android:textColor="@color/habit_primary"
             android:textSize="16sp"
             android:textStyle="bold"
             android:maxLines="1" />
@@ -159,8 +164,8 @@
                     android:insetLeft="0dp"
                     android:insetRight="0dp"
                     android:paddingHorizontal="12dp"
-                    app:backgroundTint="#1E293B"
-                    android:textColor="#94A3B8"
+                    app:backgroundTint="@color/habit_surface_light"
+                    android:textColor="@android:color/black"
                     app:strokeColor="#334155"
                     app:strokeWidth="1dp"
                     app:cornerRadius="12dp" />
@@ -176,8 +181,8 @@
                     android:insetLeft="0dp"
                     android:insetRight="0dp"
                     android:paddingHorizontal="12dp"
-                    app:backgroundTint="#1E293B"
-                    android:textColor="#94A3B8"
+                    app:backgroundTint="@color/habit_surface_light"
+                    android:textColor="@android:color/black"
                     app:strokeColor="#334155"
                     app:strokeWidth="1dp"
                     app:cornerRadius="12dp" />
@@ -187,17 +192,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="30m"
-                    android:textSize="14sp"
-                    android:maxLines="1"
                     android:insetLeft="0dp"
                     android:insetRight="0dp"
+                    android:maxLines="1"
                     android:paddingHorizontal="12dp"
-                    app:backgroundTint="#1E293B"
-                    android:textColor="#94A3B8"
+                    android:text="30m"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/habit_surface_light"
+                    app:cornerRadius="12dp"
                     app:strokeColor="#334155"
-                    app:strokeWidth="1dp"
-                    app:cornerRadius="12dp" />
+                    app:strokeWidth="1dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_duration_45"
@@ -210,8 +215,8 @@
                     android:insetLeft="0dp"
                     android:insetRight="0dp"
                     android:paddingHorizontal="12dp"
-                    app:backgroundTint="#1E293B"
-                    android:textColor="#94A3B8"
+                    app:backgroundTint="@color/habit_surface_light"
+                    android:textColor="@android:color/black"
                     app:strokeColor="#334155"
                     app:strokeWidth="1dp"
                     app:cornerRadius="12dp" />
@@ -227,8 +232,8 @@
                     android:insetLeft="0dp"
                     android:insetRight="0dp"
                     android:paddingHorizontal="12dp"
-                    app:backgroundTint="#1E293B"
-                    android:textColor="#94A3B8"
+                    app:backgroundTint="@color/habit_surface_light"
+                    android:textColor="@android:color/black"
                     app:strokeColor="#334155"
                     app:strokeWidth="1dp"
                     app:cornerRadius="12dp" />
@@ -243,8 +248,8 @@
                     android:insetLeft="0dp"
                     android:insetRight="0dp"
                     android:paddingHorizontal="12dp"
-                    app:backgroundTint="#1E293B"
-                    android:textColor="#94A3B8"
+                    app:backgroundTint="@color/habit_surface_light"
+                    android:textColor="@android:color/black"
                     app:strokeColor="#334155"
                     app:strokeWidth="1dp"
                     app:cornerRadius="12dp" />
@@ -257,7 +262,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="Focus Environment (Ambient Audio)"
-            android:textColor="@color/habit_text_primary_light"
+            android:textColor="@color/habit_primary"
             android:textSize="16sp"
             android:textStyle="bold"
             android:maxLines="1" />
@@ -280,8 +285,8 @@
                 android:insetLeft="0dp"
                 android:insetRight="0dp"
                 android:paddingHorizontal="4dp"
-                app:backgroundTint="#1E293B"
-                android:textColor="#94A3B8"
+                app:backgroundTint="@color/habit_surface_light"
+                android:textColor="@android:color/black"
                 app:strokeColor="#334155"
                 app:strokeWidth="1dp"
                 app:cornerRadius="12dp" />
@@ -298,8 +303,8 @@
                 android:insetLeft="0dp"
                 android:insetRight="0dp"
                 android:paddingHorizontal="4dp"
-                app:backgroundTint="#1E293B"
-                android:textColor="#94A3B8"
+                app:backgroundTint="@color/habit_surface_light"
+                android:textColor="@android:color/black"
                 app:strokeColor="#334155"
                 app:strokeWidth="1dp"
                 app:cornerRadius="12dp" />
@@ -316,8 +321,8 @@
                 android:insetLeft="0dp"
                 android:insetRight="0dp"
                 android:paddingHorizontal="4dp"
-                app:backgroundTint="#1E293B"
-                android:textColor="#94A3B8"
+                app:backgroundTint="@color/habit_surface_light"
+                android:textColor="@android:color/black"
                 app:strokeColor="#334155"
                 app:strokeWidth="1dp"
                 app:cornerRadius="12dp" />
@@ -342,7 +347,7 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:background="@drawable/ic_launcher_foreground"
+                    android:background="@drawable/ic_ai"
                     android:contentDescription="Reward Icon" />
 
                 <LinearLayout

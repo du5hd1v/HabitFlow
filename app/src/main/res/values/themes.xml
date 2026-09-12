@@ -18,4 +18,11 @@
         <item name="android:statusBarColor">@color/habit_bg_light</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
+
+    <!-- Splash Screen Theme -->
+    <style name="Theme.HabitFlow.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/habit_bg_dark</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.HabitFlow</item>
+    </style>
 </resources>

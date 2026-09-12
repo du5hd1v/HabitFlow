@@ -75,37 +75,37 @@
 
                     <!-- Mon -->
                     <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
-                        <View android:layout_width="16dp" android:layout_height="60dp" android:background="@color/habit_primary" />
+                        <View android:id="@+id/view_bar_mon" android:layout_width="16dp" android:layout_height="60dp" android:background="@color/habit_primary" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="M" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
                     </LinearLayout>
                     <!-- Tue -->
                     <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
-                        <View android:layout_width="16dp" android:layout_height="80dp" android:background="@color/habit_primary" />
+                        <View android:id="@+id/view_bar_tue" android:layout_width="16dp" android:layout_height="80dp" android:background="@color/habit_primary" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="T" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
                     </LinearLayout>
                     <!-- Wed -->
                     <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
-                        <View android:layout_width="16dp" android:layout_height="50dp" android:background="@color/habit_primary" />
+                        <View android:id="@+id/view_bar_wed" android:layout_width="16dp" android:layout_height="50dp" android:background="@color/habit_primary" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="W" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
                     </LinearLayout>
                     <!-- Thu -->
                     <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
-                        <View android:layout_width="16dp" android:layout_height="95dp" android:background="@color/habit_primary" />
+                        <View android:id="@+id/view_bar_thu" android:layout_width="16dp" android:layout_height="95dp" android:background="@color/habit_primary" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="T" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
                     </LinearLayout>
                     <!-- Fri -->
                     <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
-                        <View android:layout_width="16dp" android:layout_height="110dp" android:background="@color/habit_accent_gold" />
+                        <View android:id="@+id/view_bar_fri" android:layout_width="16dp" android:layout_height="110dp" android:background="@color/habit_accent_gold" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="F" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
                     </LinearLayout>
                     <!-- Sat -->
                     <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
-                        <View android:layout_width="16dp" android:layout_height="70dp" android:background="@color/habit_primary" />
+                        <View android:id="@+id/view_bar_sat" android:layout_width="16dp" android:layout_height="70dp" android:background="@color/habit_primary" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="S" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
                     </LinearLayout>
                     <!-- Sun -->
                     <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="bottom|center_horizontal" android:orientation="vertical">
-                        <View android:layout_width="16dp" android:layout_height="85dp" android:background="@color/habit_primary" />
+                        <View android:id="@+id/view_bar_sun" android:layout_width="16dp" android:layout_height="85dp" android:background="@color/habit_primary" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="S" android:textColor="@color/habit_text_secondary_light" android:textSize="12sp" />
                     </LinearLayout>
 
@@ -215,6 +215,7 @@
 
                 <!-- Coding 65% -->
                 <TextView
+                    android:id="@+id/tv_category_coding_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -224,6 +225,7 @@
                     android:textStyle="bold" />
 
                 <ProgressBar
+                    android:id="@+id/progress_coding"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
@@ -233,6 +235,7 @@
 
                 <!-- Personal 20% -->
                 <TextView
+                    android:id="@+id/tv_category_personal_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -242,6 +245,7 @@
                     android:textStyle="bold" />
 
                 <ProgressBar
+                    android:id="@+id/progress_personal"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
@@ -251,6 +255,7 @@
 
                 <!-- Health 15% -->
                 <TextView
+                    android:id="@+id/tv_category_health_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -260,6 +265,7 @@
                     android:textStyle="bold" />
 
                 <ProgressBar
+                    android:id="@+id/progress_health"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
@@ -286,29 +292,51 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="STREAK CALENDAR (12 DAYS)"
-                    android:textColor="@color/habit_text_secondary_light"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_streak_calendar_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="STREAK CALENDAR"
+                        android:textColor="@color/habit_text_secondary_light"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_streak_badge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_category_pill"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:text="12 Day Streak 🔥"
+                        android:textColor="@color/habit_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Row 1: Days 1 to 7 -->
+                <!--<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <!-- Day badges -->
-                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="1" android:textColor="@color/habit_primary" android:textStyle="bold" />
-                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="2" android:textColor="@color/habit_primary" android:textStyle="bold" />
-                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="3" android:textColor="@color/habit_primary" android:textStyle="bold" />
-                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="4" android:textColor="@color/habit_primary" android:textStyle="bold" />
-                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="5" android:textColor="@color/habit_primary" android:textStyle="bold" />
-                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="6" android:textColor="@color/habit_primary" android:textStyle="bold" />
-                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="7" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <!- Day badges -->
+                    <!--<TextView android:id="@+id/tv_day_1" android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="1" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:id="@+id/tv_day_2" android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="2" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:id="@+id/tv_day_3" android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="3" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:id="@+id/tv_day_4" android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="4" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:id="@+id/tv_day_5" android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="5" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:id="@+id/tv_day_6" android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="6" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:id="@+id/tv_day_7" android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="7" android:textColor="@color/habit_primary" android:textStyle="bold" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -316,12 +344,12 @@
                     android:layout_marginTop="4dp"
                     android:gravity="center"
                     android:orientation="horizontal">
-                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="8" android:textColor="@color/habit_primary" android:textStyle="bold" />
-                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="9" android:textColor="@color/habit_primary" android:textStyle="bold" />
-                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="10" android:textColor="@color/habit_primary" android:textStyle="bold" />
-                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="11" android:textColor="@color/habit_primary" android:textStyle="bold" />
-                    <TextView android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@color/habit_primary" android:gravity="center" android:text="12" android:textColor="@color/white" android:textStyle="bold" />
-                </LinearLayout>
+                    <TextView android:id="@+id/tv_day_8" android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="8" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:id="@+id/tv_day_9" android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="9" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:id="@+id/tv_day_10" android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="10" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:id="@+id/tv_day_11" android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@drawable/bg_category_pill" android:gravity="center" android:text="11" android:textColor="@color/habit_primary" android:textStyle="bold" />
+                    <TextView android:id="@+id/tv_day_12" android:layout_width="32dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@color/habit_primary" android:gravity="center" android:text="12" android:textColor="@color/white" android:textStyle="bold" />
+                </LinearLayout>-->
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
